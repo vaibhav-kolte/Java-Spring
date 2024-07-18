@@ -1,0 +1,76 @@
+Introduction of Autowiring and its type
+Autowiring by Name
+Autowiring by Type
+Autowiring by Constructor
+Introduction to Annotation
+    Annotation in Java provide a way to add metadata in your code
+    Example
+        @Component
+        @Autowired
+        @Qualifier
+        @Value
+        @Repository
+        @Service
+        @Controller
+        @RequestMapping
+        @SpringBootApplication
+
+Understanding Components and ComponentScan
+    Component refer to a Java class that is mapped by the Spring IoC Container
+
+    Defining Components in Spring
+        Using XML
+        Using Annotations
+
+    Using XML
+        <bean id="myComponent" class="com.example.MyComponent"/>
+
+    Using Annotation
+        @Component
+        public class MyComponent{
+            // Class implementation
+        }
+
+    Component Scanning is a feature helps to automatically detect and register bean from predefined packed paths.
+
+    <!-- Enable component scanning -->
+    <context:component-scan base-package="car.example.componentscan"/>
+
+Hands-on: Component and Component Scan
+
+Value Annotation
+
+Transition from XML to Annotation in Spring
+
+Autowired Annotation
+
+
+------------------------------------------------------------------------------
+Review
+Basic of Web
+Spring Framework
+Coupling
+Configuration
+DI and IoC
+Xml and Annotation
+
+-> Explicit Bean Configuration
+-> No Embedded Server
+-> Component Scanning
+-> Boilerplate code
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
