@@ -59,6 +59,76 @@ Xml and Annotation
 -> Component Scanning
 -> Boilerplate code
 
+------------------------------------------------------------------------------
+
+Introduction to Spring Boot
+    Introduction to Spring Boot
+        Open-source, Java based framework used to create stand-alone, production-grade Spring based Applications.
+
+    Spring-> Lots of steps involved in setting up, configuration, writing boilerplate code, deployment of the app.
+    Spring Boot-> Offers a set of pre-configured components or defaults, and eliminating the need for a lot of boilerplate code that was involved in setting up a Spring application.
+
+    Spring boot = Spring framework + Prebuild configuration + Embedded server
+
+Component of Spring Boot
+    -> Spring Boot Starters
+    -> Auto Configuration
+    -> Spring Boot Actuator
+    -> Embedded Server
+    -> Spring Boot DevTools
+
+Advantages of Spring Boot
+    -> Stand alone and Quick Start
+    -> Starter code
+    -> Less configuration
+    -> Reduces cost and application development time
+
+Why do developers love Spring Boot?
+    -> Java based
+    -> Fast, easy
+    -> Comes with embedded server
+    -> Various plugins
+    -> Avoids boilerplate code and configurations
+
+How does Spring Boot works? Architecture
+
+Following are the different tiers
+    ->Presentation layer
+    -> Service layer
+    -> Data access layer
+
+Presentation layer
+    Presentation layer presents the data the application features to the user. This is the layer where in all the controller classes exist.
+
+Service layer
+    Service layer is where business logic resides in the application. Task such as evaluation, decision making, processing of data is done at this layer.
+
+Data Access layer
+    Data access layer is the layer where all the repository classes reside.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
