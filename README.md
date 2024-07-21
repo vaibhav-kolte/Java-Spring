@@ -17,6 +17,7 @@ http://localhost:8080/student/6
 POST
 add student
 http://localhost:8080/student/add
+
 ﻿Body
 raw (json)
 json
