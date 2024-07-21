@@ -1,7 +1,7 @@
-package com.mycode.springboor_crud.service;
+package com.mycode.springboot_crud.service;
 
-import com.mycode.springboor_crud.model.Student;
-import com.mycode.springboor_crud.repository.StudentRepository;
+import com.mycode.springboot_crud.model.Student;
+import com.mycode.springboot_crud.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

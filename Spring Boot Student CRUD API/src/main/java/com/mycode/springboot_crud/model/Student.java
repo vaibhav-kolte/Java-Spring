@@ -1,4 +1,4 @@
-package com.mycode.springboor_crud.model;
+package com.mycode.springboot_crud.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

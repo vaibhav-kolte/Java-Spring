@@ -1,7 +1,7 @@
-package com.mycode.springboor_crud.controller;
+package com.mycode.springboot_crud.controller;
 
-import com.mycode.springboor_crud.model.Student;
-import com.mycode.springboor_crud.service.StudentService;
+import com.mycode.springboot_crud.model.Student;
+import com.mycode.springboot_crud.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
