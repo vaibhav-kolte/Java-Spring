@@ -17,19 +17,18 @@ http://localhost:8080/student/6
 POST
 add student
 http://localhost:8080/student/add
-﻿
-
-Body
+﻿Body
 raw (json)
 json
 {
     "name":"Mahesh",
     "address":"Malkapur"
 }
+
+
 PUT
 update student
 http://localhost:8080/student/6
-﻿
 
 Body
 raw (json)
@@ -39,6 +38,8 @@ json
     "name":"Sharad",
     "address":"Jalgaon"
 }
+
+
 DELETE
 delete student
 http://localhost:8080/student/7
