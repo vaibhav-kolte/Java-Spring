@@ -1,13 +1,13 @@
-package com.embarkx.FirstSpring;
+package com.mycode.springboot_crud;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FirstSpringApplication {
+public class SpringbootCrudApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FirstSpringApplication.class, args);
+		SpringApplication.run(SpringbootCrudApplication.class, args);
 	}
 
 }

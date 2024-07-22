@@ -1,10 +1,10 @@
-package com.embarkx.FirstSpring;
+package com.mycode.springboot_crud;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FirstSpringApplicationTests {
+class SpringbootCrudApplicationTests {
 
 	@Test
 	void contextLoads() {
