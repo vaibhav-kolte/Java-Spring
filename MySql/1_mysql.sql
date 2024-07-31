@@ -669,12 +669,298 @@ select * from customers where last_name = "Patil";
 create index last_name_first_name_idx on customers(last_name, first_name);
 
 alter table customers drop index last_name_idx;
+
+select * from customers 
+where last_name ="Kolte" AND first_name = "Vaibhav";
 -- ----------------------------------------------------------------------------------------------
+-- subquery
+-- a query within another query
+-- query (subquery)
+
+select * from employees;
+
+select avg(hourly_pay) from employees;
+
+select first_name, last_name, hourly_pay, (select avg(hourly_pay) from employees) as avgerage from employees;
+
+select first_name, 
+        last_name, hourly_pay, 
+        (select avg(hourly_pay) from employees) as avgerage, 
+		(hourly_pay > (select avg(hourly_pay) from employees)) as is_pay_avg 
+        from employees;
+        
+        
+select first_name, last_name, hourly_pay
+from employees
+where hourly_pay > (select avg(hourly_pay) from employees);
+
+
+select * from transactions;
+
+select customer_id from transactions where customer_id is not null;
+
+select distinct customer_id from transactions where customer_id is not null;
+
+select * from customers;
+
+select customer_id, first_name, last_name from customers 
+where customer_id in (select distinct customer_id from transactions where customer_id is not null);
+
+
+select customer_id, first_name, last_name from customers 
+where customer_id not in (select distinct customer_id from transactions where customer_id is not null);
 -- ----------------------------------------------------------------------------------------------
+-- group by 
+-- arrgregate all rows by a specific column often used with aggregate functions
+-- ex. sum(), max(), min(), avg(), count()
+
+select * from transactions;
+
+alter table transactions
+add column order_date date;
+
+update transactions
+set amount = 4.99, customer_id = 3, order_date = "2023-01-01" where transaction_id = 1000;
+
+update transactions
+set amount = 2.89, customer_id = 2, order_date = "2023-01-01" where transaction_id = 1001;
+
+update transactions
+set amount = 3.38, customer_id = 3, order_date = "2023-01-02" where transaction_id = 1002;
+
+update transactions
+set amount = 4.99, customer_id = 1, order_date = "2023-01-02" where transaction_id = 1003;
+
+insert into transactions (amount, customer_id, order_date)
+values (1, null, "2023-01-03"),
+	(2.49, 4, "2023-01-03"),
+    (5.48, null, "2023-01-03");
+    
+select * from transactions;
+
+select sum(amount), order_date
+from transactions
+group by order_date;
+
+select min(amount), order_date
+from transactions
+group by order_date;
+
+select max(amount), order_date
+from transactions
+group by order_date;
+
+select avg(amount), order_date
+from transactions
+group by order_date;
+
+select count(amount), order_date
+from transactions
+group by order_date;
+
+
+select sum(amount), customer_id
+from transactions
+group by customer_id;
+
+select sum(amount), customer_id
+from transactions
+group by customer_id where sum(amount) > 1;
+-- select sum(amount), customer_id from transactions group by customer_id where sum(amount) > 1
+
+
+select count(amount), customer_id
+from transactions
+group by customer_id having count(amount) > 1;
+
+select count(amount), customer_id
+from transactions
+group by customer_id having count(amount) > 1 and customer_id is not null;
+
 -- ----------------------------------------------------------------------------------------------
+-- rollup 
+-- Extension of the group by clause
+-- produces another row and shows the grand total ( super-aggregate value)
+
+select * from transactions;
+
+select sum(amount), order_date
+from transactions
+group by order_date;
+
+select sum(amount), order_date
+from transactions
+group by order_date with rollup;
+
+select count(transaction_id), order_date
+from transactions
+group by order_date with rollup;
+
+select count(transaction_id) as "# of orders", customer_id
+from transactions
+group by customer_id with rollup;
+
+select sum(hourly_pay) as "hourly_pay", employee_id
+from employees
+group by employee_id with rollup;
 -- ----------------------------------------------------------------------------------------------
+-- on delete set null = when a FK is deleted, replace FK with NULL
+-- on delete cascade = when a FK is deleted, delete row
+
+select * from customers;
+select * from transactions;
+
+delete from customers where customer_id = 4;
+-- Error Code: 1451. Cannot delete or update a parent row: a foreign key constraint fails (`mydb`.`transactions`, CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`))
+
+-- for execute above record need to run this 
+set foreign_key_checks = 0;
+
+set foreign_key_checks = 1;
+
+insert into customers
+values (4, "Suchita", "Kolte", 2, "suchita@gmail.com");
+
+-- if you not create table at first time do this or check this
+create table transactions(
+	transaction_id int primary key,
+    amount decimal(5, 2),
+    customer_id int,
+    order_date date,
+    foreign key (customer_id) references customers(customer_id)
+    on delete set null
+);
+
+-- if you already create table and want to use "on delete set null" do this
+alter table transactions drop foreign key fk_customer_id;
+
+-- Note: if foreign key is not exists which you want to delelte getting error like this
+-- Error Code: 1091. Can't DROP 'fk_customer_id'; check that column/key exists
+
+
+alter table transactions
+add constraint fk_customer_id
+foreign key(customer_id) references customers(customer_id)
+on delete set null;
+
+select * from customers;
+select * from transactions;
+
+delete from customers where customer_id = 4;
+
+select * from customers;
+select * from transactions;
+
+insert into customers
+values (4, "Suchita", "Kolte", 2, "suchita@gmail.com");
+
+alter table transactions drop foreign key fk_customer_id;
+
+alter table transactions
+add constraint fk_customer_id
+foreign key(customer_id) references customers(customer_id)
+on delete cascade;
+
+update transactions set customer_id = 4 where transaction_id = 1005;
+
+select * from customers;
+select * from transactions;
+
+delete from customers where customer_id = 4;
+
+select * from customers;
+select * from transactions;
 -- ----------------------------------------------------------------------------------------------
+-- Stored procedure
+-- id prepared SQL code that you can save great if there's a query the you write often.
+			-- reduce network traffic
+            -- increases performance
+            -- secure, admin can grant permission to use 
+            -- increases memory usage of every connection
+
+select distinct first_name, last_name
+from transactions
+inner join customers
+on transactions.customer_id = customers.customer_id;
+
+delimiter $$
+create procedure get_customers()
+begin
+	select * from customers;
+end $$
+delimiter ;
+
+
+call get_customers();
+
+drop procedure get_customers;
+
+delimiter $$
+create procedure find_customer(in id int)
+begin
+	select * from customers where customer_id = id;
+end $$
+delimiter ;
+
+call find_customer(1);
+
+drop procedure find_customer;
+
+delimiter $$
+create procedure find_customer(in f_name varchar(50),
+								in l_name varchar(50))
+begin
+	select * from customers
+	where first_name = f_name and last_name = l_name;
+end $$
+delimiter ;
+
+call find_customer("Vaibhav", "Kolte");
 -- ----------------------------------------------------------------------------------------------
+-- Trigger 
+-- When an event happens, to something
+-- ex. (insert, update, delete)
+-- checks data, handles errors, auditing tables
+
+select * from employees;
+
+alter table employees
+add column salary decimal(10, 2) after hourly_pay;
+
+
+update employees
+set salary = hourly_pay * 2080;
+-- Error Code: 1175. You are using safe update mode and you tried to update a table without a WHERE that uses a KEY column.  
+-- To disable safe mode, toggle the option in Preferences -> SQL Editor and reconnect.
+
+
+-- first do  Disable Safe Updates
+SET SQL_SAFE_UPDATES = 0;
+
+update employees
+set salary = hourly_pay * 2080;
+
+-- after that re-enable Safe Updates
+SET SQL_SAFE_UPDATES = 1;
+
+
+create trigger before_hourly_pay_update
+before update on employees
+for each row
+set new.salary = (new.hourly_pay * 2080);
+
+show triggers;
+
+select * from employees;
+
+update employees
+set hourly_pay = 50
+where employee_id = 1;
+
+update employees 
+set hourly_pay = hourly_pay + 1;
+
+
 -- ----------------------------------------------------------------------------------------------
 -- ----------------------------------------------------------------------------------------------
 -- ----------------------------------------------------------------------------------------------
